@@ -1,0 +1,3 @@
+Bank,CreditCard_Nulls.csv,DELIMITED,/home/etl/ETL/inputdata,3,ETL,Y,hdfs://10.3.2.13:8020/user/hadoop/rawzone/,CreditCard_hivetb
+Reports,Report_US_Alerts_Dump_Last_3_Months.csv,DELIMITED,/home/etl/ETL/inputdata,4,passthrough,N,hdfs://10.3.2.13:8020/user/hadoop/rawzone/,ReportUSAlerts_DumpLast3Months_hivetb
+Tutorial,MysqlTestTable,database,"",0,passthrough,N,hdfs://10.3.2.13:8020/user/hadoop/rawzone/,MysqlTestTable_hivetb

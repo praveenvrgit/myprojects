@@ -1,0 +1,72 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a data ingestion framework"
+  version: "1.0.0"
+  title: "Data Ingestion Framework"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "10.3.2.16:8080"
+basePath: "/v2"
+tags:
+- name: "Create"
+  description: "Create Ingestion Rules"
+- name: "Trigger"
+  description: "Trigger data ingestion"
+- name: "Maintainance"
+  description: "List / delete / update Ingestion Rules"
+- name: "Schedule"
+  description: "Schedule data ingestion"
+schemes:
+- "https"
+- "http"
+paths:
+  /rules/list:
+    get:
+      tags:
+      - "Maintainance"
+      summary: "Displays list of ingestion rules / feed names"
+      description: "Displays list of ingestion rules / feed names"
+      operationId: "get_feed_names"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "integer"
+              format: "int32"
+      x-swagger-router-controller: "swagger_server.controllers.maintainance_controller"
+  /rules/delete:
+    delete:
+      tags:
+      - "Maintainance"
+      summary: "Delete ingestion rules / feed names"
+      description: "Delete list of ingestion rules / feed names"
+      operationId: "deleteFeedNames"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters: 
+      - name: "FeedName"
+        in: "formData"
+        description: "Feed Name that needs to executed for data ingestion"
+        required: True
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "integer"
+              format: "int32"
+definitions: {}

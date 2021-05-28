@@ -1,0 +1,2 @@
+Bank,CreditCard_Nulls,DELIMITED,',',3,null,null,'DD/MM/YYYY',2,1,2,3
+Reports,Report_US_Alerts_DUMP_LAST_3_Months.csv,DELIMITED,',',null,null,null,null,null,null,null,null

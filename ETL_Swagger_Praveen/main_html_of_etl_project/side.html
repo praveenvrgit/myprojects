@@ -1,0 +1,55 @@
+﻿<html>
+<head>
+<title>ETL</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="Design.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body >
+
+<div class="sidenav">
+  <div class="search-container">
+    <form>
+	<br>
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+<br>  
+<div class="container">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" data-toggle="dropdown" title="End to End is a process in which extract, transform and load operation is done">End to End</button>  
+    </button>
+    <ul class="dropdown-menu" role="menu" style="background-color:#333333; border: 1px solid ;">
+      <button  style="width: 100%;" type="button" class="btn btn-primary" onclick="parent.workarea_page.location.href='EndtoEnd.html', 
+location.target='workarea_page'" title="Create a new ETL process" data-toggle="dropdown" >Create</button><br>
+	  <button  style="width: 100%;" type="button" class="btn btn-primary" onclick="parent.workarea_page.location.href='ETETrigger.html', 
+location.target='workarea_page'" title="Trigger ETL process" data-toggle="dropdown" >Trigger</button><br>
+      <button style="width: 100%;" type="button" class="btn btn-primary" title="Edit existing process" data-toggle="dropdown" >Table Maintenance</button>  
+    </ul>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary" data-toggle="dropdown" title="Moves data from source to destination">Data Ingestion</button>
+    </button>
+     <ul class="dropdown-menu" role="menu" style="background-color:#333333; border: 1px solid ;">
+      <button  style="width: 100%;" type="button" class="btn btn-primary" onclick="parent.workarea_page.location.href='DataIngestion.html', 
+location.target='workarea_page'" title="Create a new ETL process" data-toggle="dropdown" >Create</button><br>
+	  <button  style="width: 100%;" type="button" class="btn btn-primary" onclick="parent.workarea_page.location.href='DITrigger.html', 
+location.target='workarea_page'" title="Trigger ETL process" data-toggle="dropdown" >Trigger</button><br>
+      <button style="width: 100%;" type="button" class="btn btn-primary" title="Edit existing process"  data-toggle="dropdown" >Table Maintenance</button>  
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+font-family: Arial, Helvetica, sans-serif;
+background: radial-gradient(circle at 94.02% 88.03%, #54a4ff, transparent 100%),radial-gradient(circle at 25.99% 27.79%, #ff94fb, transparent 100%),radial-gradient(circle at 50% 50%, #000000, #000000 100%);
+}
+form {
+border: transparent;
+}
+
+
+input[type=text] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: none;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor:pointer;
+  width: 25%;
+  position:relative;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+.button1 {
+  width: 10%;
+  background-color: #4d79ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor:pointer;
+  position:relative;
+}
+
+.button2 {
+  width: 15%;
+  background-color: #4d79ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor:pointer;
+  position:relative;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 25%;
+  }
+}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="">
+</head>
+<body>
+<br>
+<center><h2>Data Ingestion</h2></center>
+<form>
+  <div class="container">
+    <label for="FeedName" title="Unique Name"><b>Feed Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FeedName" type="text" placeholder="Enter feed name" name="name" pattern="[a-zA-Z]+" required>
+	<br><br><br>
+	
+	<label for="DataFormat" title="Type of file"><b>Data Format:</b><b style="color:red;">*</b></label>
+	<select id="DataFormat" style='margin-left:340px' ng-model="DataFormat" required>
+	<option value="">select</option>
+    <option value="Delimited">Delimited</option>
+    <option value="Fixed">Fixed</option>
+    <option value="Json">Json</option>
+    <option value="Avro">Avro</option>
+	<option value="Orc">Orc</option>
+    <option value="Parquet">Parquet</option>
+	<option value="Kafka">Kafka</option>
+	<option value="MySQL">MySQL</option>	
+	<option value="Oracle">Oracle</option>	
+	<option value="Cassandra">Cassandra</option>	
+	<option value="AWSS3">AWS S3</option>	
+    </select>
+	<br><br><br>
+	
+	
+<div ng-switch="DataFormat">
+  <div ng-switch-when="Delimited">
+	
+    <label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>	
+    <label for="SourcePath" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*">
+    <br><br>
+	<label for="Upload Schema" title="Upload Schema" required><b>Upload Schema:</b><b style="color:red;">*</b></label><br><br>
+	<input type="file" name="file" accept="*/*">
+	<br><br>
+    <button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>	
+	<br><br><br>
+	
+  </div>
+  
+  <div ng-switch-when="Fixed">
+    
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*">
+    <br><br>
+	<label for="Upload Schema" title="Upload Schema" required><b>Upload Schema:</b><b style="color:red;">*</b></label><br><br>
+	<input type="file" name="file" accept="*/*">	
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>	
+    <br><br><br>
+	
+  </div>
+  
+   
+  <div ng-switch-when="Json">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*">  
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+
+  </div>
+  
+  <div ng-switch-when="Avro">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+
+  </div>
+  
+  <div ng-switch-when="Orc">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+	
+  </div>
+  
+  <div ng-switch-when="Parquet">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+	
+  </div>
+  
+  <div ng-switch-when="Kafka">
+  
+    <label for="TopicName" title="TopicName"><b>Topic Name:</b><b style="color:red;">*</b></label>
+    <input id="TopicName" style="width: 20%; margin-left:220px; Height:10px" type="text" name="name" placeholder="          Topic Name" required><br><br>
+	<label for="BootstrapServers" title="BootstrapServers"><b>Bootstrap Servers:</b><b style="color:red;">*</b></label>
+    <input id="BootstrapServers" style="width: 20%; margin-left:170px; Height:10px" type="text" name="name" placeholder="        Bootstrap Servers" required><br><br>
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="kafka()">Validate</button>
+  </div>
+  
+  <div ng-switch-when="MySQL">
+	
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db()">Validate</button>
+  </div>
+  
+  <div ng-switch-when="Oracle">
+  
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>	  
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db();">Validate</button>
+	
+  </div>
+  
+  <div ng-switch-when="Cassandra">
+  
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>    	  
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db();">Validate</button>
+	 
+  </div>
+  
+  <div ng-switch-when="AWSS3">
+	
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db()">Validate</button>
+	
+  </div>
+</div>
+
+	 
+    <label><input type="checkbox"  checked="checked" name="remember" >Save</label>	  
+    <button class="button button1" style='margin-left:360px' type="submit">Submit</button>
+   
+  </div>  
+</form>
+
+</form>
+</body>
+<script>
+const DataFormat = document.getElementById('DataFormat');
+
+let files = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');			
+			const FileName = document.getElementById('FileName');
+            const SourcePath = document.getElementById('SourcePath');	
+			
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+               '\r FileName: ' +FileName.value+'\r\n'+ 
+               '\r SourcePath: ' +SourcePath.value;
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'file.txt';	   
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+
+let kafka = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');				
+			const TopicName = document.getElementById('TopicName');
+		    const BootstrapServers = document.getElementById('BootstrapServers');
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+			   '\r TopicName: ' +TopicName.value+'\r\n'+ 
+               '\r BootstrapServers: ' +BootstrapServers.value;
+			   
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'kafka.txt';	  
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+	
+let db = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');		
+			const Host = document.getElementById('Host');
+            const Sequal = document.getElementById('Sequal');
+            const UserName = document.getElementById('UserName');
+            const Password = document.getElementById('Password');
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+  
+			   '\r Host: '+Host.value+'\r\n'+ 
+               '\r Sequal: '+Sequal.value+'\r\n'+
+			   '\r UserName: '+UserName.value+'\r\n'+
+               '\r Password: '+Password.value;
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'db.txt';	  
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+	
+</script>
+</html>

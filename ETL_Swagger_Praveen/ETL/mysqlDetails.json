@@ -1,0 +1,1 @@
+{ "DB_name" : "etl", "host" : "10.3.2.13", "user": "etlmysql", "password": "tata@123", "query":"select * from CaliforniaHousingData"}

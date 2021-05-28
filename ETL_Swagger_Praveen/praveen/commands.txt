@@ -1,0 +1,47 @@
+sparkSession.sql("insert into table etl.attendence_tracker select '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'".format(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList))
+
+
+Attendence_tracking(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList)
+
+Attendence_tracking(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList)
+
+Attendence_tracking(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList)
+
+
+trackingid (string)
+feedname (string)
+filename (string)
+landingpath (string)
+arrivaltimestamp (string)
+currenttimestamp (string)
+filesize (string)
+busdate (string)
+rawzonepath (string)
+headerdata (string)
+trailerdata (string)
+headervldtflag (string)
+trailervldtflag (string)
+errorcodelist (string)
+
+
+********************************************************************************************************************************************
+
+UPDATE feedcontrol SET feedname = 'ChurnPrediction' WHERE filename = 'WA_Fn-UseC_-Telco-Customer-Chu';
+
+UPDATE filemetadata SET feedname = 'ChurnPrediction' WHERE filename = 'WA_Fn-UseC_-Telco-Customer-Chu';
+
+Insert into feedcontrol values('Churn Prediction','WA_Fn-UseC_-Telco-Customer-Churn.csv','DELIMITED','/home/etl/ETL/inputdata',0,'passthrough','N','hdfs://10.3.2.13:8020/user/hadoop/rawzone','telcocustomerchurn');
+
+Insert into filemetadata values('Churn Prediction','WA_Fn-UseC_-Telco-Customer-Churn.csv','DELIMITED',',',0,0,0,'',0,0,0,0);
+
+ CREATE TABLE etl.feedcontrol ( feedname varchar(200), filename varchar(200), dataformat varchar(200), landingpath varchar(200), rejectthreshold int, processtype varchar(200), headertrailerflag varchar(200), rawzonepath varchar(200), sourcetablename varchar(200) );
+
+
+ INSERT INTO etl.filemetadata (feedname,filename,filetype,filedelimiter,busdateposition,busdatestartpos,busdateendpos,busdateformat,trailercountpos,headeridentifier,detailidentifier,traileridentifier) VALUES ('ChurnPrediction','WA_Fn-UseC_-Telco-Customer-Churn.csv','DELIMITED',',',null,null,null,null,null,null,null,null);
+CREATE TABLE etl.calender ( busdate DATE, openindicator varchar(500) );
+INSERT INTO etl.calender(busdate, openindicator) values ('2019-05-29','Y');
+CREATE TABLE etl.filemetadata ( feedname varchar(30), filename varchar(30), filetype varchar(30), filedelimiter varchar(30), busdateposition int, busdatestartpos int, busdateendpos int, busdateformat varchar(30), trailercountpos int, headeridentifier int, detailidentifier int, traileridentifier int );
+CREATE TABLE etl.mapper(feedname(500),key_col(500),value_col(500));
+
+
+ INSERT INTO etl.mapper(feedname, key_col,value_col) values('Tutorial','query','select * from table ');

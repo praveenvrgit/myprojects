@@ -1,0 +1,479 @@
+openapi: 3.0.1
+info:
+  title: TCS Data Management Portal
+  description: This is a data ingestion framework
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://10.3.2.16:8080/v2
+tags:
+- name: Ingestion Rule Create
+  description: Create Ingestion Rules
+- name: Ingestion Rule Trigger
+  description: Trigger data ingestion
+- name: Ingestion Rule Maintainance
+  description: List / delete / update Ingestion Rules
+- name: Ingestion Rule Schedule
+  description: Schedule data ingestion
+- name: TCS Utils
+  description: Common Utilities
+paths:
+  /rules/{feedname}:
+    get:
+      tags:
+      - Ingestion Rule Maintainance
+      summary: Displays information on ingestion rule
+      operationId: get_feed_names_details
+      parameters:
+      - name: feedname
+        in: path
+        description: Name of ingest rule
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Displays rules
+          content:
+            multipart/form-data:
+              schema:
+                type: string
+        400:
+          description: Invalid ingestion rule supplied
+          content: {}
+        404:
+          description: INgestion rule not found
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_maintainance_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_maintainance_controller
+    delete:
+      tags:
+      - Ingestion Rule Maintainance
+      summary: Deletes a ingestion rule
+      operationId: delete_feed_names
+      parameters:
+      - name: feedname
+        in: path
+        description: Name of ingestion rule
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid ingestion rule supplied
+          content: {}
+        404:
+          description: INgestion rule not found
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_maintainance_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_maintainance_controller
+  /rules/update:
+    put:
+      tags:
+      - Ingestion Rule Maintainance
+      summary: Update ingestion rules / feed names
+      description: Update list of ingestion rules / feed names
+      operationId: update_feed_names
+      requestBody:
+        description: New KAFKA data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRule'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_maintainance_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_maintainance_controller
+  /trigger/{feedname}:
+    post:
+      tags:
+      - Ingestion Rule Trigger
+      summary: Trigger a data ingestion rule
+      operationId: trigger_ingestion
+      parameters:
+      - name: feedname
+        in: path
+        description: Feedname for which data ingestion needs to be triggered
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Data ingestion completed successfully
+          content: {}
+        401:
+          description: Data ingestion failed, please check the logs..
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_trigger_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_trigger_controller
+  /create/kafka:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for KAFKA data ingestion
+      operationId: create_new_ingestion_rules
+      requestBody:
+        description: New KAFKA data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Kafka'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/mySQL:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for MYSQL data ingestion
+      operationId: create_new_my_sql_rules
+      requestBody:
+        description: New MYSQL data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MySQL'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/fixedWidthFlatFile:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for Fixed Width File data ingestion
+      operationId: create_new_fixed_file_rules
+      requestBody:
+        description: New Fixed File data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FixedFile'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/delimitedFlatFile:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for Delimited File data ingestion
+      operationId: create_new_delimited_file_rules
+      requestBody:
+        description: New Delimited File data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DelimitedFile'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/avro:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for AVRO File data ingestion
+      operationId: create_new_avro_file_rules
+      requestBody:
+        description: New AVRO File data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AvroFile'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/parquet:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for PARQUET File data ingestion
+      operationId: create_new_parquet_file_rules
+      requestBody:
+        description: New PARQUET File data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AvroFile'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/orc:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for ORC File data ingestion
+      operationId: create_new_orc_file_rules
+      requestBody:
+        description: New ORC File data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AvroFile'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /create/json:
+    post:
+      tags:
+      - Ingestion Rule Create
+      summary: Create New rules for JSON File data ingestion
+      operationId: create_new_json_file_rules
+      requestBody:
+        description: New JSON File data source to be configured
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AvroFile'
+        required: true
+      responses:
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: not found
+          content: {}
+        405:
+          description: Validation exception
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+      x-openapi-router-controller: swagger_server.controllers.ingestion_rule_create_controller
+  /utils/predictiveAnalysis:
+    post:
+      tags:
+      - TCS Utils
+      summary: Predictive Analysis Usecase for Telcom & Manufacturing industry
+      operationId: predictive_analysis
+      responses:
+        200:
+          description: Churn prediction completed successfully
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+                x-content-type: application/pdf
+        401:
+          description: Churn prediction failed, please check the logs..
+          content: {}
+      x-swagger-router-controller: swagger_server.controllers.tcs_utils_controller
+      x-openapi-router-controller: swagger_server.controllers.tcs_utils_controller
+components:
+  schemas:
+    MySQL:
+      type: object
+      properties:
+        feedName:
+          type: string
+          example: Name of the feed
+        dbName:
+          type: string
+          example: DBName
+        sqlQuery:
+          type: string
+          example: select * from dual
+        user:
+          type: string
+          example: XXXXXX
+        password:
+          type: string
+          example: XXXXXX
+      example:
+        sqlQuery: select * from dual
+        feedName: Name of the feed
+        dbName: DBName
+        user: UserName
+        password: Password
+      xml:
+        name: MySQL
+    Kafka:
+      type: object
+      properties:
+        feedName:
+          type: string
+          example: Name of the feed
+        kafkaTopic:
+          type: string
+          example: TopicName
+        bootstrapServers:
+          type: string
+          example: caaspoc64
+        dml:
+          type: string
+          example: abc.json
+      example:
+        dml: abc.json
+        feedName: Name of the feed
+        kafkaTopic: TopicName
+        bootstrapServers: caaspoc64
+      xml:
+        name: Kafka
+    UpdateRule:
+      type: object
+      properties:
+        feedName:
+          type: string
+          example: Name of the feed
+        inputFileLocation:
+          type: string
+          example: /home/landing/abc.dat
+        fileFormat:
+          type: string
+          example: AVRO/JSON/PARQUET/ORC
+      example:
+        inputFileLocation: /home/landing/abc.dat
+        feedName: Name of the feed
+        fileFormat: AVRO/JSON/PARQUET/ORC
+      xml:
+        name: UpdateRule
+    FixedFile:
+      type: object
+      properties:
+        feedName:
+          type: string
+          example: Name of the feed
+        inputFileLocation:
+          type: string
+          example: /home/landing/abc.dat
+        inferSchema:
+          type: string
+          example: Y/N
+        dml:
+          type: string
+          example: abc.json
+      example:
+        inputFileLocation: /home/landing/abc.dat
+        dml: abc.json
+        feedName: Name of the feed
+        inferSchema: Y/N
+      xml:
+        name: FixedFile
+    DelimitedFile:
+      type: object
+      properties:
+        feedName:
+          type: string
+          example: Name of the feed
+        inputFileLocation:
+          type: string
+          example: /home/landing/abc.dat
+        inferSchema:
+          type: string
+          example: Y/N
+        dml:
+          type: string
+          example: abc.json
+        columnSeperator:
+          type: string
+          example: ',/|/^/!'
+      example:
+        inputFileLocation: /home/landing/abc.dat
+        dml: abc.json
+        columnSeperator: ',/|/^/!'
+        feedName: Name of the feed
+        inferSchema: Y/N
+      xml:
+        name: DelimitedFile
+    AvroFile:
+      type: object
+      properties:
+        feedName:
+          type: string
+          example: Name of the feed
+        inputFileLocation:
+          type: string
+          example: /home/landing/abc.dat
+      example:
+        inputFileLocation: /home/landing/abc.dat
+        feedName: Name of the feed
+      xml:
+        name: AvroFile
+

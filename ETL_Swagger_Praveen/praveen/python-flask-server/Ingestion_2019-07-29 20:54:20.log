@@ -1,0 +1,14 @@
+29-Jul-19 20:54:20 - Job Started : 2019-07-29 20:54:20
+29-Jul-19 20:54:22 - User logged in and created SparkContext and SparkSession
+29-Jul-19 20:54:22 - Feteched command line arguments ChurnPrediction
+29-Jul-19 20:54:22 - SELECT * FROM etl.feedcontrol WHERE feedname ='ChurnPrediction'
+29-Jul-19 20:54:28 - value of attendence_id is 18
+29-Jul-19 20:54:29 - path is : /home/etl/ETL/inputdata/WA_Fn-UseC_-Telco-Customer-Churn.csv
+29-Jul-19 20:54:29 - fileformat check
+29-Jul-19 20:54:29 - Job is at delimiter check
+29-Jul-19 20:54:29 - header_trailer_flag is N and fileformat is DELIMITED , hence calling WithOutHeaderTrailer
+29-Jul-19 20:54:29 - Job is in function WithOutHeaderTrailer
+29-Jul-19 20:54:30 - ALTER TABLE etl.telcocustomerchurn ADD IF NOT EXISTS PARTITION (BusDate='2019-05-29',attendence_id=18) LOCATION 'hdfs://10.3.2.13:8020/user/hadoop/rawzone/WA_Fn-UseC_-Telco-Customer-Churn.csv/BusDate=2019-05-29/attendence_id=18'
+29-Jul-19 20:54:30 - path to rawzone with partitions : hdfs://10.3.2.13:8020/user/hadoop/rawzone/WA_Fn-UseC_-Telco-Customer-Churn.csv/BusDate=2019-05-29/attendence_id=18
+29-Jul-19 20:54:30 - hdfs://10.3.2.13:8020/user/hadoop/rawzone/WA_Fn-UseC_-Telco-Customer-Churn.csv/BusDate=2019-05-29/attendence_id=18
+29-Jul-19 20:54:31 - Data has been entered into Attendence_tracker

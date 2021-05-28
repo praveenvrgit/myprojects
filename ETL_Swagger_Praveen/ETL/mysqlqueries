@@ -1,0 +1,169 @@
+sparkSession.sql("insert into table etl.attendence_tracker select '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'".format(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList))
+
+
+Attendence_tracking(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList)
+
+Attendence_tracking(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList)
+
+Attendence_tracking(attendence_id, feedname, filename, path, ArrivalTimeStamp, currentTimeStamp,FileSize, DateOfExtract,rawzonepath, Header, Trailer, HeaderVldFlag, TrailerVldFlag, ErrorCodeList)
+
+
+trackingid (string)
+feedname (string)
+filename (string)
+landingpath (string)
+arrivaltimestamp (string)
+currenttimestamp (string)
+filesize (string)
+busdate (string)
+rawzonepath (string)
+headerdata (string)
+trailerdata (string)
+headervldtflag (string)
+trailervldtflag (string)
+errorcodelist (string)
+
+
+********************************************************************************************************************************************
+
+
+ALTER TABLE filemetadata ADD COLUMN totalrowsstartpos VARCHAR(15) AFTER busdateendpos
+
+ALTER TABLE filemetadata ADD COLUMN totalrowsstartpos VARCHAR(15) AFTER busdateendpos
+
+UPDATE feedcontrol SET feedname = 'ChurnPrediction' WHERE filename = 'WA_Fn-UseC_-Telco-Customer-Chu';
+
+UPDATE filemetadata SET feedname = 'ChurnPrediction' WHERE filename = 'WA_Fn-UseC_-Telco-Customer-Chu';
+
+Insert into feedcontrol values('Churn Prediction','WA_Fn-UseC_-Telco-Customer-Churn.csv','DELIMITED','/home/etl/ETL/inputdata',0,'passthrough','N','hdfs://10.3.2.13:8020/user/hadoop/rawzone','telcocustomerchurn');
+
+Insert into feedcontrol values('Employees','EmployeeDetails.csv','FIXED','/home/etl/ETL/inputdata',0,'passthrough','N','hdfs://10.3.2.13:8020/user/hadoop/rawzone','EmployeeDetails');
+
+Insert into filemetadata values('Employees','EmployeeDetails.csv','FIXED','',0,0,0,0,0,0,0,0,0);
+
+Insert into filemetadata values('ChurnPrediction','WA_Fn-UseC_-Telco-Customer-Churn.csv','DELIMITED',',',0,0,0,0,0,0,0,0,0);
+
+Insert into filemetadata values('Bank','CreditCard_Nulls.csv','DELIMITED',',',3,0,0,0,0,2,1,2,3);
+
+Insert into filemetadata values('Reports','Report_US_Alerts_DUMP_LAST_3_Months.csv','DELIMITED',',',0,0,0,0,0,0,0,0,0);
+
+ CREATE TABLE etl.feedcontrol ( feedname varchar(200), filename varchar(200), dataformat varchar(200), landingpath varchar(200), rejectthreshold int, processtype varchar(200), headertrailerflag varchar(200), rawzonepath varchar(200), sourcetablename varchar(200) );
+ 
+ 
+Insert into mapper values('Employees','layoutfilepath','/home/etl/ETL/inputdata/EmployeesSchema.json');
+
+Insert into mapper values('UniqueConstraints','rawzonepath','hdfs://10.3.2.13:8020/user/hadoop/rawzone');
+
+Insert into mapper values('UniqueConstraints','hive-thrift-url','thrift://10.3.2.20:9083');
+
+
+ALTER TABLE feedcontrol DROP rawzonepath ;
+
+
+
+
+ 
+ 
+UPDATE mapper SET  key_col = 'HOST' WHERE value_col = '10.3.2.13';
+UPDATE mapper SET  key_col = 'DBNAME' WHERE value_col = 'etl';
+UPDATE mapper SET  key_col = 'SQLQUERY' WHERE value_col = 'select * from table';
+UPDATE mapper SET  value_col = 'select * from tutorials_tbl' WHERE key_col = 'SQLQUERY';
+UPDATE mapper SET  key_col = 'USER' WHERE value_col = 'etlmysql';
+UPDATE mapper SET  key_col = 'PASSWORD' WHERE value_col = 'tata@123';
+
+
+
+
+longitude
+latitude
+housing_median_age
+total_roomstotal rooms in the district
+total_bedroomstotal bedrooms in the district
+populationtotal population in the district
+householdstotal households in the district
+median_income
+median_house_value
+ocean_proximity
+
+
+
+
+
+
+CREATE TABLE etl.CaliforniaHousingData ( longitude DOUBLE, latitude DOUBLE, housing_median_age INT, total_roomstotal INT, total_bedroomstotal INT, populationtotal INT, householdstotal INT, median_income FLOAT, median_house_value INT, ocean_proximity varchar(200));
+ 
+Insert into CaliforniaHousingData values(-122.23,37.88,41,880,129,322,126,8.3252,452600,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.22,37.86,21,7099,1106,2401,1138,8.3014,358500,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.24,37.85,52,1467,190,496,177,7.2574,352100,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.25,37.85,52,1274,235,558,219,5.6431,341300,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.25,37.85,52,1627,280,565,259,3.8462,342200,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.25,37.85,52,919,213,413,193,4.0368,269700,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.25,37.84,39,2535,489,1094,514,3.6591,299200,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.25,37.84,52,3104,687,1157,647,3.12,241400,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.26,37.84,42,2555,665,1206,595,2.0804,226700,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.25,37.84,52,3549,707,1551,714,3.6912,261100,'NEAR BAY');
+Insert into CaliforniaHousingData values(-122.26,37.85,52,2202,434,910,402,3.2031,281500,'NEAR BAY');           
+Insert into CaliforniaHousingData values(-122.26,37.85,36,3503,752,1504,734,3.2705,241800,'NEAR BAY');          
+Insert into CaliforniaHousingData values(-122.26,37.85,52,2491,474,1098,468,3.075,213500,'NEAR BAY');           
+Insert into CaliforniaHousingData values(-122.26,37.84,46,696,191,345,174,2.6736,191300,'NEAR BAY');            
+Insert into CaliforniaHousingData values(-122.26,37.85,35,2643,626,1212,620,1.9167,159200,'NEAR BAY');          
+Insert into CaliforniaHousingData values(-122.26,37.85,50,1120,283,697,264,2.125,140000,'NEAR BAY');            
+Insert into CaliforniaHousingData values(-122.27,37.85,52,1966,347,793,331,2.775,152500,'NEAR BAY');            
+Insert into CaliforniaHousingData values(-122.27,37.85,52,1228,293,648,303,2.1202,155500,'NEAR BAY');           
+Insert into CaliforniaHousingData values(-122.26,37.84,50,2239,455,990,419,1.9911,158700,'NEAR BAY');           
+Insert into CaliforniaHousingData values(-122.27,37.84,22,1503,298,690,275,2.6033,162900,'NEAR BAY');
+
+Insert into mapper values('HousingData','DBNAME','etl');
+Insert into mapper values('HousingData','HOST','10.3.2.13');
+Insert into mapper values('HousingData','USER','etlmysql');
+Insert into mapper values('HousingData','PASSWORD','tata@123 ');
+Insert into mapper values('HousingData','SQLQUERY','select * from CaliforniaHousingData');
+
+
+Insert into feedcontrol values('HousingData','MysqlTestTable','database','',0,'passthrough','N','CaliforniaHousingData_hivetb');
+
++------------------+-----------------------------------------+------------+-------------------------+-----------------+-------------+-------------------+---------------------------------------+
+| feedname         | filename                                | dataformat | landingpath             | rejectthreshold | processtype | headertrailerflag | sourcetablename                       |
++------------------+-----------------------------------------+------------+-------------------------+-----------------+-------------+-------------------+---------------------------------------+
+| Reports          | Report_US_Alerts_Dump_Last_3_Months.csv | DELIMITED  | /home/etl/ETL/inputdata |               4 | passthrough | N                 | ReportUSAlerts_DumpLast3Months_hivetb |
+| Bank             | CreditCard_Nulls.csv                    | DELIMITED  | /home/etl/ETL/inputdata |               3 | ETL         | Y                 | CreditCard_hivetb                     |
+| Tutorial         | MysqlTestTable                          | database   |                         |               0 | passthrough | N                 | MysqlTestTable_hivetb                 |
+
+
+DBNAME      etl                        
+HOST        10.3.2.13                  
+USER        etlmysql                   
+PASSWORD    tata@123                   
+SQLQUERY    select * from tutorials_tbl
+
+
+
+
+
+
+
+
+
+
+Insert into feedcontrol
+values('HousingData','CaliforniaHousingData','database','',0,'passthrough','N','hdfs://10.3.2.13:8020/user/hadoop/rawzone','CaliforniaHousingData');
+
+Create external table CaliforniaHousingData
+(
+longitude DOUBLE,
+latitude DOUBLE, 
+housing_median_age INT, 
+total_roomstotal INT, 
+total_bedroomstotal INT, 
+populationtotal INT, 
+householdstotal INT, 
+median_income FLOAT, 
+median_house_value INT, 
+ocean_proximity varchar(200)
+)
+PARTITIONED BY (BusDate DATE, attendence_Id INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+stored as textfile
+LOCATION '/user/hadoop/rawzone/CaliforniaHousingData'
+

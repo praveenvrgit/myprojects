@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+font-family: Arial, Helvetica, sans-serif;
+background: radial-gradient(circle at 94.02% 88.03%, #54a4ff, transparent 100%),radial-gradient(circle at 25.99% 27.79%, #ff94fb, transparent 100%),radial-gradient(circle at 50% 50%, #000000, #000000 100%);
+}
+form {
+border: transparent;
+}
+
+
+input[type=text] {
+  width: 50%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: none;box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;color: white;padding: 14px 20px;margin: 8px 0;border: none; cursor:pointer;width: 25%;position:relative;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.button1 {
+  width: 10%;
+  background-color: #4d79ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor:pointer;
+  position:relative;
+}
+
+.cancelbtn {
+  width: auto;padding: 10px 18px;background-color: #f44336;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;float: none;
+  }
+  .cancelbtn {
+     width: 25%;
+  }
+}
+</style>
+</head>
+<body>
+<br>
+<center><h2>Data Ingestion</h2></center>
+<a href="C:/Users/1292562/Desktop/demo.php"></a>
+<form>
+
+  <div class="container">
+    <label for="FeedName" title="Unique Name"><b>Feed Name:</b><b style="color:red;">*</b></label><br><br>
+    <input id="FeedName" type="text" placeholder="Enter feed name" name="name" pattern="[a-zA-Z]+" required>
+    <br><br>
+	 	  
+      <button class="button button1" style='margin-left:415px' type="submit" onclick="saveFile()" >Submit</button>
+    </form>
+  </div>  
+</form>
+
+<script>
+    let saveFile = () => {
+    	
+    	const FeedName = document.getElementById('FeedName');
+            
+        let data = 
+            'FeedName: ' + FeedName.value;
+           
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = 'DITrigger.txt';	 
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+</script>
+
+</body>
+</html>

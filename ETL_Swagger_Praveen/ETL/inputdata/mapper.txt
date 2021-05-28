@@ -1,0 +1,2 @@
+'thrift_URL','hive.metastore.uris','thrift://10.3.2.20:9083'
+'Rawzonepath','rawzonepath','hdfs://10.100.101.30:8020/user/hadoop/rawzone/'

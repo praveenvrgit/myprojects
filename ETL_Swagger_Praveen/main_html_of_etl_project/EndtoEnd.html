@@ -1,0 +1,673 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body {
+font-family: Arial, Helvetica, sans-serif;
+background: radial-gradient(circle at 94.02% 88.03%, #54a4ff, transparent 100%),radial-gradient(circle at 25.99% 27.79%, #ff94fb, transparent 100%),radial-gradient(circle at 50% 50%, #000000, #000000 100%);
+}
+form {
+border: transparent;
+}
+
+input[type=text] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: none;
+  box-sizing: border-box;
+}
+
+input[type=number] {
+  width: 3%;
+  padding: 2px 3px;
+  margin: 8px 0;
+  display: inline-block;
+  border: none;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 25%;
+  position:relative;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.button1 {
+  width: 10%;
+  background-color: #4d79ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor:pointer;
+  position:relative;
+}
+
+.button2 {
+  width: 15%;
+  background-color: #4d79ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor:pointer;
+  position:relative;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 25%;
+  }
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="">
+</head>
+
+<body>
+<br>
+<center><h2>End to End</h2></center>
+<form>
+  <div class="container">
+    <label for="FeedName" title="Unique Name"><b>Feed Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FeedName" type="text" placeholder="Enter feed name" name="name" pattern="[a-zA-Z]+" required> 
+	<br><br><br>
+		
+    <label for="DataFormat" title="Type of file"><b>Data Format:</b><b style="color:red;">*</b></label>
+	<select id="DataFormat" style='margin-left:280px' ng-model="DataFormat" required>
+	<option value="">select</option>
+    <option value="Delimited">Delimited</option>
+    <option value="Fixed">Fixed</option>
+    <option value="Json">Json</option>
+    <option value="Avro">Avro</option>
+	<option value="Orc">Orc</option>
+    <option value="Parquet">Parquet</option>
+	<option value="Kafka">Kafka</option>
+	<option value="MySQL">MySQL</option>	
+	<option value="Oracle">Oracle</option>	
+	<option value="Cassandra">Cassandra</option>	
+	<option value="AWSS3">AWS S3</option>
+    </select>
+	<br><br><br>
+
+<div ng-switch="DataFormat">
+  <div ng-switch-when="Delimited">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*">
+	<br><br>
+	<label for="Upload Schema" title="Upload Schema" required><b>Upload Schema:</b><b style="color:red;">*</b></label><br><br>
+	<input type="file" name="file" accept="*/*">
+    <br><br><br>
+	
+	<label for="HeaderandTrailerdata" title="If file contains header and trailer data in file"><b>Header and Trailer data:</b><b style="color:red;">*</b></label>
+	<select id="HeaderandTrailerdata" style='margin-left:277px' ng-model="HeaderandTrailerdata" required>
+	<option value="">select</option>
+    <option value="Yes">Yes</option>
+    <option value="No">No</option>	
+    </select>	
+	<br><br><br>
+	
+	<div ng-switch="HeaderandTrailerdata">
+      <div ng-switch-when="No">
+	  <br><br>
+	  <button class="button button2" style='margin-left:360px' type="submit" onclick="delimited()">Validate</button>
+      <br><br><br>
+	  </div>
+	
+      <div ng-switch-when="Yes">
+	    <label for="DelimiterType" title="Type of delimiter in the file"><b>Delimiter Type:</b><b style="color:red;">*</b></label>	
+	    <select id="DelimiterType" style='margin-left:340px' name="DelimiterType" required>
+	    <option value="">select</option>
+        <option value=",">,</option>
+        <option value="|">|</option>
+        <option value="\">\</option>
+        <option value=":">:</option>
+	    <option value=";">;</option>
+        <option value="/">/</option>
+	    <option value=" "> </option>	
+        </select>
+	    <br><br><br>
+	    <label for="HeaderIdentifier" title="Identifier of header"><b>Header Identifier:</b><b style="color:red;">*</b></label>
+	    <input id="HeaderIdentifier" type="number" value="0" min="0" style="width: 5%; margin-left:325px" required>
+	    <br><br>
+		<label for="DetailIdentifier" title="Identifier of Detail"><b>Detail Identifier:</b><b style="color:red;">*</b></label>
+	    <input id="DetailIdentifier" type="number" value="0" min="0" style="width: 5%; margin-left:335px" required>
+	    <br><br>
+		<label for="TrailerIdentifier" title="Identifier of Trailer"><b>Trailer Identifier:</b><b style="color:red;">*</b></label>
+	    <input id="TrailerIdentifier" type="number" value="0" min="0" style="width: 5%; margin-left:335px" required>
+	    <br><br>
+	    <label for="BusinessDatePosition" title="In which position is business date present"><b>Business Date Position:</b><b style="color:red;">*</b></label>
+	    <input id="BusinessDatePosition" type="number" value="0" min="0" style="width: 5%; margin-left:275px" required>
+	    <br><br>
+		<button class="button button2" style='margin-left:360px' type="submit" onclick="delimitedfiles()">Validate</button>	
+	    <br><br><br>
+	  </div>
+	</div>
+  </div>
+ 
+  <div ng-switch-when="Fixed">
+    
+    <label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<label for="Upload Schema" title="Upload Schema" required><b>Upload Schema:</b><b style="color:red;">*</b></label><br><br>
+	<input type="file" name="file" accept="*/*">
+    <br><br><br>
+	  
+    <label for="HeaderandTrailerdata" title="If file contains header and trailer data in file"><b>Header and Trailer data:</b><b style="color:red;">*</b></label>
+	<select id="HeaderandTrailerdata" style='margin-left:275px' ng-model="HeaderandTrailerdata" required>
+	<option value="">select</option>
+    <option value="Yes">Yes</option>
+    <option value="No">No</option>	
+    </select>	
+	<br><br><br>
+	
+	<div ng-switch="HeaderandTrailerdata">
+      <div ng-switch-when="No">
+	    <br><br>
+	    <button class="button button2" style='margin-left:360px' type="submit" onclick="fixed()">Validate</button>
+        <br><br><br>
+	  </div>
+	  
+	
+      <div ng-switch-when="Yes">
+	    <label for="HeaderIdentifier" title="Identifier of header"><b>Header Identifier:</b><b style="color:red;">*</b></label>
+	    <input id="HeaderIdentifier"  type="number" value="0" min="0" style="width: 5%; margin-left:325px" required>
+	    <br><br>
+		<label for="DetailIdentifier" title="Identifier of Detail"><b>Detail Identifier:</b><b style="color:red;">*</b></label>
+	    <input id="DetailIdentifier"  type="number" value="0" min="0" style="width: 5%; margin-left:335px" required>
+	    <br><br>
+		<label for="TrailerIdentifier" title="Identifier of Trailer"><b>Trailer Identifier:</b><b style="color:red;">*</b></label>
+	    <input id="TrailerIdentifier"  type="number" value="0" min="0" style="width: 5%; margin-left:335px" required>
+	    <br><br>
+	    <label for="BusinessDateStartPosition" title="In which position is Business Date Start"><b>Business Date Start Position:</b><b style="color:red;">*</b></label>
+	    <input id="BusinessDateStartPosition"  type="number" value="0" min="0" style="width: 5%; margin-left:240px" required>
+	    <br><br>
+	    <label for="BusinessDateEndPosition" title="In which position is Business Date End"><b>Business Date End Position:</b><b style="color:red;">*</b></label>
+	    <input id="BusinessDateEndPosition"  type="number" value="0" min="0" style="width: 5%; margin-left:245px" required>
+		<br><br>
+		<label for="TotalRowsStartPosition" title="In which position is Total Rows Start"><b>Total Rows Start Position:</b><b style="color:red;">*</b></label>
+	    <input id="TotalRowsStartPosition"  type="number" value="0" min="0" style="width: 5%; margin-left:240px" required>
+	    <br><br>
+	    <label for="TotalRowsEndPosition" title="In which position is Total Rows Start"><b>Total Rows End Position:</b><b style="color:red;">*</b></label>
+	    <input id="TotalRowsEndPosition"  type="number" value="0" min="0" style="width: 5%; margin-left:245px" required>
+		<br><br>
+		<button class="button button2" style='margin-left:360px' type="submit" onclick="fixedfiles()">Validate</button>	
+	    <br><br><br>
+		
+	  </div>
+	</div>
+  </div>
+   
+  <div ng-switch-when="Json">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*">  
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+
+  </div>
+  
+  <div ng-switch-when="Avro">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+
+  </div>
+  
+  <div ng-switch-when="Orc">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+	
+  </div>
+  
+  <div ng-switch-when="Parquet">
+	
+	<label for="FileName" title="File Name"><b>File Name:</b><b style="color:red;">*</b></label><br>
+    <input id="FileName" type="text" placeholder="Enter file name" name="name" pattern="[a-zA-Z]+">
+    <br><br>
+    <label for="Source Path" title="Source path of the file"><b>Source Path:</b></label><br>
+    <input id="SourcePath" type="text" placeholder="Enter Source Path" name="name" pattern="[a-zA-Z]+" required>
+	<br><br>
+	<label for="OR"><b>OR</b></label><br>
+	<br>
+	<label for="Upload File" title="Upload file directly instead of giving source path"><b>Upload File:</b></label><br><br>
+	<input type="file" name="file" accept="*/*"> 
+	<br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="files()">Validate</button>
+    <br><br><br>
+	
+  </div>
+  
+  <div ng-switch-when="Kafka">
+  
+    <label for="TopicName" title="TopicName"><b>Topic Name:</b><b style="color:red;">*</b></label>
+    <input id="TopicName" style="width: 20%; margin-left:220px; Height:10px" type="text" name="name" placeholder="          Topic Name" required><br><br>
+	<label for="BootstrapServers" title="BootstrapServers"><b>Bootstrap Servers:</b><b style="color:red;">*</b></label>
+    <input id="BootstrapServers" style="width: 20%; margin-left:170px; Height:10px" type="text" name="name" placeholder="        Bootstrap Servers" required><br><br>
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="kafka()">Validate</button>
+  </div>
+  
+  <div ng-switch-when="MySQL">
+	
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db()">Validate</button>
+  </div>
+  
+  <div ng-switch-when="Oracle">
+  
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>	  
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db();">Validate</button>
+	
+  </div>
+  
+  <div ng-switch-when="Cassandra">
+  
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>    	  
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db();">Validate</button>
+	 
+  </div>
+  
+  <div ng-switch-when="AWSS3">
+	
+	<label for="Host" title="Host Name"><b>Host Name:</b><b style="color:red;">*</b></label>
+    <input id="Host" style="width: 20%; margin-left:185px; Height:10px" type="text" name="name" placeholder="        Host" required><br><br>
+	<label for="Sequal" title="Sequal"><b>Sequal:</b><b style="color:red;">*</b></label>
+    <input id="Sequal" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Sequal" required><br><br>
+    <label for="UserName" title="Sequal"><b>UserName:</b><b style="color:red;">*</b></label>
+    <input id="UserName" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              User Name" required><br><br>
+	<label for="Password" title="Sequal"><b>Password:</b><b style="color:red;">*</b></label>
+    <input id="Password" style="width: 20%; margin-left:250px; Height:10px"  type="text" name="name" placeholder="              Password" required><br><br>
+    <br><br>
+	<button class="button button2" style='margin-left:360px' type="submit" onclick="db()">Validate</button>
+	
+  </div>
+
+ </div>
+
+</div>	 
+    <label><input type="checkbox"  checked="checked" name="remember" >Save</label>	  
+    <button class="button button1" style='margin-left:360px' type="submit">Submit</button>
+   
+
+</div>
+  
+</form>
+
+</form>
+</body>
+<script>
+const DataFormat = document.getElementById('DataFormat');
+
+let files = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');			
+			const FileName = document.getElementById('FileName');
+            const SourcePath = document.getElementById('SourcePath');	
+			
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+               '\r FileName: ' +FileName.value+'\r\n'+ 
+               '\r SourcePath: ' +SourcePath.value;
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'files.txt';	   
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+
+let delimited = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');			
+			const FileName = document.getElementById('FileName');
+            const SourcePath = document.getElementById('SourcePath');	
+			const HeaderandTrailerdata = document.getElementById('HeaderandTrailerdata');
+
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+               '\r FileName: ' +FileName.value+'\r\n'+ 
+               '\r SourcePath: ' +SourcePath.value+'\r\n'+
+			   '\r HeaderandTrailerdata: ' +HeaderandTrailerdata.value;
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'delimited.txt';	   
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+
+	
+let delimitedfiles = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');			
+			const FileName = document.getElementById('FileName');
+            const SourcePath = document.getElementById('SourcePath');
+			const HeaderandTrailerdata = document.getElementById('HeaderandTrailerdata');
+			const DelimiterType = document.getElementById('DelimiterType');
+			const HeaderIdentifier = document.getElementById('HeaderIdentifier');
+			const DetailIdentifier = document.getElementById('DetailIdentifier');
+			const TrailerIdentifier = document.getElementById('TrailerIdentifier');
+			const BusinessDatePosition = document.getElementById('BusinessDatePosition');
+     
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+               '\r FileName: ' +FileName.value+'\r\n'+ 
+               '\r SourcePath: ' +SourcePath.value+'\r\n'+
+			   '\r HeaderandTrailerdata: ' +HeaderandTrailerdata.value+'\r\n'+
+			   '\r DelimiterType: ' +DelimiterType.value+'\r\n'+
+			   '\r HeaderIdentifier: ' +HeaderIdentifier.value+'\r\n'+
+			   '\r DetailIdentifier: ' +DetailIdentifier.value+'\r\n'+
+			   '\r TrailerIdentifier: ' +TrailerIdentifier.value+'\r\n'+
+			   '\r BusinessDatePosition: ' +BusinessDatePosition.value;
+			   	   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'delimitedfiles.txt';	   
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+	
+let fixed = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');			
+			const FileName = document.getElementById('FileName');
+            const SourcePath = document.getElementById('SourcePath');	
+			const HeaderandTrailerdata = document.getElementById('HeaderandTrailerdata');
+
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+               '\r FileName: ' +FileName.value+'\r\n'+ 
+               '\r SourcePath: ' +SourcePath.value+'\r\n'+
+			   '\r HeaderandTrailerdata: ' +HeaderandTrailerdata.value;
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'fixed.txt';	   
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+
+	
+let fixedfiles = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');			
+			const FileName = document.getElementById('FileName');
+            const SourcePath = document.getElementById('SourcePath');	
+			const HeaderandTrailerdata = document.getElementById('HeaderandTrailerdata');
+			const HeaderIdentifier = document.getElementById('HeaderIdentifier');
+			const DetailIdentifier = document.getElementById('DetailIdentifier');
+			const TrailerIdentifier = document.getElementById('TrailerIdentifier');
+			const BusinessDateStartPosition = document.getElementById('BusinessDateStartPosition');
+			const BusinessDateEndPosition = document.getElementById('BusinessDateEndPosition');
+			const TotalRowsStartPosition = document.getElementById('TotalRowsStartPosition');
+			const TotalRowsEndPosition = document.getElementById('TotalRowsEndPosition');
+			
+			
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+               '\r FileName: ' +FileName.value+'\r\n'+ 
+               '\r SourcePath: ' +SourcePath.value+'\r\n'+
+			   '\r HeaderandTrailerdata: ' +HeaderandTrailerdata.value+'\r\n'+
+			   '\r HeaderIdentifier: ' +HeaderIdentifier.value+'\r\n'+
+			   '\r DetailIdentifier: ' +DetailIdentifier.value+'\r\n'+
+			   '\r TrailerIdentifier: ' +TrailerIdentifier.value+'\r\n'+
+			   '\r BusinessDateStartPosition: ' +BusinessDateStartPosition.value+'\r\n'+
+			   '\r BusinessDateEndPosition: ' +BusinessDateEndPosition.value+'\r\n'+
+			   '\r NoOfRowsStartPosition: ' +TotalRowsStartPosition.value+'\r\n'+
+			   '\r NoOfRowsEndPosition: ' +TotalRowsEndPosition.value;
+			   
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'fixedfiles.txt';	   
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+	
+	
+let kafka = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');				
+			const TopicName = document.getElementById('TopicName');
+		    const BootstrapServers = document.getElementById('BootstrapServers');
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+
+			   '\r TopicName: ' +TopicName.value+'\r\n'+ 
+               '\r BootstrapServers: ' +BootstrapServers.value;
+			   
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'kafka.txt';	  
+            
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+	
+	
+let db = () => {
+    
+		    const FeedName = document.getElementById('FeedName');
+            const DataFormat = document.getElementById('DataFormat');		
+			const Host = document.getElementById('Host');
+            const Sequal = document.getElementById('Sequal');
+            const UserName = document.getElementById('UserName');
+            const Password = document.getElementById('Password');
+           
+		    let data = 
+               '\r FeedName: '+FeedName.value+'\r\n'+
+               '\r DataFormat: '+DataFormat.value+'\r\n'+  
+			   '\r Host: '+Host.value+'\r\n'+ 
+               '\r Sequal: '+Sequal.value+'\r\n'+
+			   '\r UserName: '+UserName.value+'\r\n'+
+               '\r Password: '+Password.value;
+			   
+			const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'db.txt';	  
+            let newLink = document.createElement("a");
+            newLink.download = sFileName;
+            
+            if (window.webkitURL != null) {
+                newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+            }
+            else {
+                newLink.href = window.URL.createObjectURL(textToBLOB);
+                newLink.style.display = "none";
+                document.body.appendChild(newLink);
+            }
+            
+            newLink.click(); 
+    }
+	
+</script>
+</html>

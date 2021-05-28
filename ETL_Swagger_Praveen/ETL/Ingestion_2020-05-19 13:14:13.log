@@ -1,0 +1,11 @@
+19-May-20 13:14:13 - Job Started : 2020-05-19 13:14:13
+19-May-20 13:14:15 - User logged in and created SparkContext and SparkSession
+19-May-20 13:14:23 - value of attendence_id is 31
+19-May-20 13:14:24 - fileformat check
+19-May-20 13:14:24 - Job is at delimiter check
+19-May-20 13:14:24 - header_trailer_flag is Y and fileformat is DELIMITED , hence calling WithHeaderTrailer
+19-May-20 13:14:24 - Job is in function WithHeaderTrailer
+19-May-20 13:14:24 - <class 'str'>
+19-May-20 13:14:26 - ALTER TABLE etl.CreditCard_hivetb ADD IF NOT EXISTS PARTITION (BusDate='29/05/2019',attendence_id=31) LOCATION 'hdfs://10.3.2.13:8020/user/hadoop/rawzone/CreditCard_Nulls.csv/BusDate=29/05/2019/attendence_id=31'
+19-May-20 13:14:26 - path to rawzone with partitions : hdfs://10.3.2.13:8020/user/hadoop/rawzone/CreditCard_Nulls.csv/BusDate=29/05/2019/attendence_id=31
+19-May-20 13:14:27 - Data has been entered into Attendence_tracker
